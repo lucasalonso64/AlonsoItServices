@@ -1,0 +1,71 @@
+<div class="content p-1">
+    <div class="list-group-item">
+        <div class="d-flex">
+            <div class="mr-auto p-2">
+                <h2 class="display-4 titulo">Chamados</h2>
+            </div>
+            <div class="p-2">
+                <a href="/admin/cad-chamado">
+                    <button class="btn btn-outline-success btn-sm">
+                        Cadastrar
+                    </button>
+                </a>
+            </div>
+        </div>
+        <hr>
+        {{>_msg}}
+      
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Assunto</th>
+                        <th>Categoria do Chamado</th>
+                        <th>Data de abertura</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each chamados}}
+                    <tr>
+                        <td>{{numero}}</td>
+                        <td>{{assunto}}</td>
+
+                        <td>
+                            <a href="/admin/vis-cat-chamado/{{catchamados._id}}">
+                                {{catchamados.nome}}
+                            </a>
+                        </td>
+                        <td>{{created}}</td>
+                        <td class="text-center">
+                            <span class="d-none d-md-block">
+                                <a href="/admin/vis-chamado/{{_id}}"
+                                    class="btn btn-outline-primary btn-sm">Visualizar</a>
+                                <a href="/admin/edit-chamado/{{_id}}" class="btn btn-outline-warning btn-sm">Editar</a>
+                                <a href="/admin/del-chamado/{{_id}}" class="btn btn-outline-danger btn-sm">Apagar</a>
+                            </span>
+                            <div class="dropdown d-block d-md-none">
+                                <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ações
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
+                                    <a class="dropdown-item" href="/admin/vis-chamado/{{_id}}">Visualizar</a>
+                                    <a class="dropdown-item" href="/admin/edit-chamado/{{_id}}">Editar</a>
+                                    <a class="dropdown-item" href="/admin/del-chamado/{{_id}}">Apagar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
