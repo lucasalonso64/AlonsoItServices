@@ -29,6 +29,6 @@ const InteracoesChamados = new Schema({
         timestamps: { created: true, updatedAt: false }
     })
 
-Chamado.plugin(AutoIncrement, { inc_field: 'numerointeracao' });
+    InteracoesChamados.plugin(AutoIncrement, { inc_field: 'numerointeracao' });
 
 mongoose.model("interacoeschamados", InteracoesChamados)

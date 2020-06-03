@@ -9,6 +9,11 @@ const Chamado = mongoose.model('chamado')
 
 require("../models/StatusChamado");
 const StatusChamado = mongoose.model('statuschamado')
+
+require("../models/InteracoesChamados");
+const InteracoesChamados = mongoose.model('interacoeschamados')
+
+//InteracoesChamados
 require('dotenv').config()
 
 const { getTransport, sendEmail } = require('../send-mail')
@@ -347,6 +352,9 @@ router.post('/update-interacao-chamado', (req, res) => {
         chamado.assunto = req.body.assunto
         chamado.descricao = req.body.descricao
         chamado.save().then(() => {
+        /*Inicio do tratamento*/
+
+        /*Fim do tratamento*/
             req.flash("success_msg", "Trâmite enviado com sucesso!")
             res.redirect("/admin/meuschamados")
         }).catch((erro) => {          
@@ -379,6 +387,35 @@ router.post('/update-reabri-chamado', (req, res) => {
         req.flash("error_msg", "Error: Chamado não encontrado!")
         res.redirect("/vis-chamadoencerrado")
     })
+})
+
+//Teste de cadastro de interação
+
+router.get('/cad-interacaoteste', (req, res) => {
+    res.render("admin/cad-interacaoteste")
+})
+
+router.post('/add-interacaoteste', (req, res) => {
+    var errors = []
+    if (!req.body.textointeracao || typeof req.body.textointeracao == undefined || req.body.textointeracao == null) {
+        errors.push({ error: "Necessário preencher o campo categoria" })
+    }
+    if (errors.length > 0) {
+        res.render("admin/cad-interacaoteste", { errors: errors })
+    } else {
+        const addInteracao = {
+            textointeracao: req.body.textointeracao,
+            numerochamado: req.body.numerochamado
+        }
+        new InteracoesChamados(addInteracao).save().then(() => {
+            req.flash("success_msg", "Categoria de chamado cadastrada com sucesso!")
+            res.redirect('/admin/cad-interacaoteste')
+
+        }).catch((erro) => {
+            req.flash("error_msg", "Error: Categoria de chamado não cadastrada com sucesso!")
+            res.redirect('/admin/cad-interacaoteste')
+        })
+    }
 })
 
 module.exports = router
