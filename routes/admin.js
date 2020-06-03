@@ -332,6 +332,32 @@ router.get('/edit-cat-chamado/:id', (req, res) => {
         res.redirect("/admin/cat-pagamentos")
     })
 })
+// Tratamento da interação
+router.get('/interacao-chamados/:id', (req, res) => {
+    Chamado.findOne({ _id: req.params.id }).then((chamado) => {
+        res.render("admin/interacao-chamados", { chamado: chamado })
+    }).catch((erro) => {
+        req.flash("error_msg", "Error: Chamado não encontrado!")
+        res.redirect("/admin/chamados")
+    })
+})
+// Altera o chamado e insere a interação
+router.post('/update-interacao-chamado', (req, res) => {
+    Chamado.findOne({ _id: req.body.id }).then((chamado) => {
+        chamado.assunto = req.body.assunto
+        chamado.descricao = req.body.descricao
+        chamado.save().then(() => {
+            req.flash("success_msg", "Trâmite enviado com sucesso!")
+            res.redirect("/admin/meuschamados")
+        }).catch((erro) => {          
+            req.flash("error_msg", "Error: Trâmite não enviado!")
+            res.redirect("/admin/meuschamados")
+        })
+    }).catch((erro) => {
+        req.flash("error_msg", "Error: Trâmite não enviado!")
+        res.redirect("/admin/meuschamados")
+    })
+})
 
 // Edita status chamado
 router.get('/edit-status-chamado/:id', (req, res) => {

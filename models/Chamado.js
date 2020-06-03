@@ -38,9 +38,6 @@ const Chamado = new Schema({
        // default: (new Date(), 'yyyy-mm-dd HH:MM:ss')
     }
     
-    
-      
-
 }, {
     timestamps: { created: true, updatedAt: false }
 })
