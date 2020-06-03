@@ -56,3 +56,7 @@ db.nome_collection.find();
 
 Instalação: https://www.npmjs.com/package/mongoose-sequence
 Exemplo: https://stackoverflow.com/questions/51171529/generate-auto-increment-field-using-mongoose
+
+
+
+https://stackoverflow.com/questions/29899208/mongoose-date-field-set-default-to-date-now-n-days

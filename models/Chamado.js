@@ -14,7 +14,13 @@ const Chamado = new Schema({
     descricao: {
         type: String,
        // required: true
-    },    
+    },  
+    
+    status: {
+        type: Number
+        
+      
+    },
 
     numero: {
         //type: Number,
@@ -26,13 +32,17 @@ const Chamado = new Schema({
         ref: "catchamados",
         required: true
     },
-
     created: {
         type: Date,
-        default: Date.now()
+        default:  Date.now()
+       // default: (new Date(), 'yyyy-mm-dd HH:MM:ss')
     }
     
+    
+      
 
+}, {
+    timestamps: { created: true, updatedAt: false }
 })
 
 Chamado.plugin(AutoIncrement, {inc_field: 'numero'});

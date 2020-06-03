@@ -8,16 +8,15 @@ const path = require("path")
 const mongoose = require('mongoose')
 const flash = require('connect-flash')//
 const session = require('express-session')
+const consign = require('consign');
+require('dotenv').config()
 
 
 //Configurações 
 /*
 //Sessão */
 app.use(session({
-    secret: 'testtesttestee', //al@ns@sessi@on'
-    resave: true,
-    saveUninitialized: true,
-  }))
+    secret: 'testtesttestee', resave: true, saveUninitialized: true,  }))
 
 //Flash 
 app.use(flash()) 
@@ -54,9 +53,6 @@ app.use(express.static(path.join(__dirname, "public")))
 
 //Rotas
 app.use('/admin', admin)
-
-//Iniciar o servidor
-const PORT = 8080;
-app.listen(PORT, () => {
-    console.log("Servidor iniciado!");
-})
+app.listen(process.env.SERVER_PORT || 3000, function(){
+    console.log('rodando na porta ', process.env.SERVER_PORT);
+});

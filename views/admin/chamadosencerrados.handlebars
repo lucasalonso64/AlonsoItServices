@@ -2,7 +2,7 @@
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Chamados</h2>
+                <h2 class="display-4 titulo">Chamados encerrados</h2>
             </div>
             <div class="p-2">
                 <a href="/admin/cad-chamado">
@@ -13,9 +13,9 @@
             </div>
 
             <div class="p-2">
-                <a href="/admin/chamadosencerrados">
+                <a href="/admin/chamados">
                     <button class="btn btn-outline-success btn-sm">
-                        Encerrados
+                        Abertos
                     </button>
                 </a>
             </div>
@@ -50,12 +50,9 @@
                         <td>{{created}}</td>
                         <td class="text-center">
                             <span class="d-none d-md-block">
-                                <a href="/admin/vis-chamado/{{_id}}"
-                                    class="btn btn-outline-primary btn-sm">Visualizar</a>
-                                <a href="/admin/edit-chamado/{{_id}}" class="btn btn-outline-warning btn-sm">Editar</a>
-                                <a href="/admin/del-chamado/{{_id}}" class="btn btn-outline-danger btn-sm">Apagar</a>
-                                 <a href="/admin/vis-chamado/{{_id}}"
-                                    class="btn btn-outline-success btn-sm">Assumir</a>
+                                <a href="/admin/vis-chamadoencerrado/{{_id}}" class="btn btn-outline-primary btn-sm">Reabrir</a>
+
+
                             </span>
                             <div class="dropdown d-block d-md-none">
                                 <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar"
@@ -63,9 +60,9 @@
                                     Ações
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
-                                    <a class="dropdown-item" href="/admin/vis-chamado/{{_id}}">Visualizar</a>
-                                    <a class="dropdown-item" href="/admin/edit-chamado/{{_id}}">Editar</a>
-                                    <a class="dropdown-item" href="/admin/del-chamado/{{_id}}">Apagar</a>
+                                    <a class="dropdown-item" href="/admin/vis-chamado/{{_id}}">Reabrir</a>
+
+
                                 </div>
                             </div>
                         </td>
