@@ -19,7 +19,7 @@ require('dotenv').config()
 const { getTransport, sendEmail } = require('../send-mail')
 
 router.get('/', (req, res) => {
-   // res.send("/teste")
+    // res.send("/teste")
     res.render("admin/chamados")
 })
 
@@ -51,7 +51,7 @@ router.get('/vis-status-chamado/:id', (req, res) => {
         req.flash("error_msg", "Error: Categoria do chamado não foi encontrada!")
         res.render("admin/status")
     })
-  
+
 })
 
 router.get('/cad-cat-chamado', (req, res) => {
@@ -166,7 +166,7 @@ router.get('/del-status-chamado/:id', (req, res) => {
 })
 
 router.get('/chamados', (req, res) => {
-    Chamado.find({status: 2}).populate("catchamados").then((chamados) => {
+    Chamado.find({ status: 2 }).populate("catchamados").then((chamados) => {
         res.render("admin/chamados", { chamados: chamados })
     }).catch((erro) => {
         req.flash("error_msg", "Error: Chamado não encontrado!")
@@ -187,7 +187,7 @@ router.get('/status', (req, res) => {
 })
 
 router.get('/meuschamados', (req, res) => {
-    Chamado.find({status: 1}).populate("catchamados").then((chamados) => {
+    Chamado.find({ status: 1 }).populate("catchamados").then((chamados) => {
         res.render("admin/meuschamados", { chamados: chamados })
     }).catch((erro) => {
         req.flash("error_msg", "Error: Chamado não encontrado!")
@@ -196,7 +196,7 @@ router.get('/meuschamados', (req, res) => {
 })
 
 router.get('/chamadosencerrados', (req, res) => {
-    Chamado.find({status: 5}).populate("catchamados").then((chamados) => {
+    Chamado.find({ status: 5 }).populate("catchamados").then((chamados) => {
         res.render("admin/chamadosencerrados", { chamados: chamados })
     }).catch((erro) => {
         req.flash("error_msg", "Error: Chamado não encontrado!")
@@ -206,7 +206,7 @@ router.get('/chamadosencerrados', (req, res) => {
 
 router.get('/vis-chamado/:id', (req, res) => {
     Chamado.findOne({ _id: req.params.id }).populate("catchamados").then((chamado) => {
-        res.render("admin/vis-chamado", { chamado: chamado })       
+        res.render("admin/vis-chamado", { chamado: chamado })
         console.log(chamado);
     }).catch((erro) => {
         req.flash("error_msg", "Error: Chamado não encontrado!")
@@ -266,31 +266,31 @@ router.post('/add-chamado', (req, res) => {
             status: 2,
             catchamados: req.body.catchamados
         }
-        new Chamado(addChamado).save().then((params) => { 
-                  // teste de envio de e-mail
-                  const config = {
-                    service: 'gmail',
-                    email: 'alonsoitservices@gmail.com',
-                    password: process.env.PASSWORD
-                }
-                const destination = {
-                    remetente: 'alonsoitservices@gmail.com',
-                    email: 'alonsosistemas@gmail.com',
-                    subject: 'Abertura de chamado'
-                }
-                const html = `<h2> Seu chamado foi aberto com sucesso. <br>` +
-                                   
-                    `<h3> Número: ` + params.numero + `<br>` +
-                    `<h3> Assunto: ` + params.assunto + `<br>` +
-                    `<h3> Descrição: ` + params.descricao
-                console.log(params)
-                const transport = getTransport(config)
-                sendEmail(transport)(destination, html)
-                    .then(response => console.log(response))
-                    .catch(err => console.log(err))
-                // fim do teste de envio de e-mal        */
+        new Chamado(addChamado).save().then((params) => {
+            // teste de envio de e-mail
+            const config = {
+                service: 'gmail',
+                email: 'alonsoitservices@gmail.com',
+                password: process.env.PASSWORD
+            }
+            const destination = {
+                remetente: 'alonsoitservices@gmail.com',
+                email: 'alonsosistemas@gmail.com',
+                subject: 'Abertura de chamado'
+            }
+            const html = `<h2> Seu chamado foi aberto com sucesso. <br>` +
+
+                `<h3> Número: ` + params.numero + `<br>` +
+                `<h3> Assunto: ` + params.assunto + `<br>` +
+                `<h3> Descrição: ` + params.descricao
+            console.log(params)
+            const transport = getTransport(config)
+            sendEmail(transport)(destination, html)
+                .then(response => console.log(response))
+                .catch(err => console.log(err))
+            // fim do teste de envio de e-mal        */
             req.flash("success_msg", "Chamado cadastrado com sucesso ")
-           // req.flash("success_msg", "E-mail enviado com sucesso!")
+            // req.flash("success_msg", "E-mail enviado com sucesso!")
             res.redirect('/admin/chamados')
         }).catch((erro) => {
             req.flash("error_msg", "Erro: Chamado não cadastrado")
@@ -304,24 +304,24 @@ router.get('/del-chamado/:id', (req, res) => {
     Chamado.deleteOne({ _id: req.params.id }).then((params) => {
         req.flash("success_msg", "Chamado apagado com sucesso!")
         res.redirect("/admin/chamados")
-                          // teste de envio de e-mail
-                          const config = {
-                            service: 'gmail',
-                            email: 'alonsoitservices@gmail.com',
-                            password: process.env.PASSWORD
-                        }
-                        const destination = {
-                            remetente: 'alonsoitservices@gmail.com',
-                            email: 'alonsosistemas@gmail.com',
-                            subject: 'Exclusão de chamado'
-                        }
-                        const html = `<h2> O chamado `+ params.numero + req.params.numero + ` foi excluído. <br>`             
-                        console.log(params)
-                        const transport = getTransport(config)
-                        sendEmail(transport)(destination, html)
-                            .then(response => console.log(response))
-                            .catch(err => console.log(err))
-                        // fim do teste de envio de e-mal        */
+        // teste de envio de e-mail
+        const config = {
+            service: 'gmail',
+            email: 'alonsoitservices@gmail.com',
+            password: process.env.PASSWORD
+        }
+        const destination = {
+            remetente: 'alonsoitservices@gmail.com',
+            email: 'alonsosistemas@gmail.com',
+            subject: 'Exclusão de chamado'
+        }
+        const html = `<h2> O chamado ` + params.numero + req.params.numero + ` foi excluído. <br>`
+        console.log(params)
+        const transport = getTransport(config)
+        sendEmail(transport)(destination, html)
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
+        // fim do teste de envio de e-mal        */
     }).catch((erro) => {
         req.flash("error_msg", "Error: Chamado não foi apagado com sucesso!")
         res.redirect("/admin/chamados")
@@ -340,7 +340,21 @@ router.get('/edit-cat-chamado/:id', (req, res) => {
 // Tratamento da interação
 router.get('/interacao-chamados/:id', (req, res) => {
     Chamado.findOne({ _id: req.params.id }).then((chamado) => {
-        res.render("admin/interacao-chamados", { chamado: chamado })
+        res.render("admin/interacao-chamados", { chamado: chamado })       
+        
+    }).catch((erro) => {
+            req.flash("error_msg", "Error: Chamado não encontrado!")
+            res.redirect("/admin/chamados")
+        })
+      
+
+  
+
+})
+// Buscando informações no banco de dados
+router.get('/interacao-chamados1/:numerochamado', (req, res) => {
+    InteracoesChamados.find({ numerochamado: req.params.numerochamado }).then((interacoeschamados) => {
+        res.render("admin/interacao-chamados", { interacoeschamados: interacoeschamados })
     }).catch((erro) => {
         req.flash("error_msg", "Error: Chamado não encontrado!")
         res.redirect("/admin/chamados")
@@ -352,12 +366,18 @@ router.post('/update-interacao-chamado', (req, res) => {
         chamado.assunto = req.body.assunto
         chamado.descricao = req.body.descricao
         chamado.save().then(() => {
-        /*Inicio do tratamento*/
+            /*Inicio do tratamento*/
 
-        /*Fim do tratamento*/
+            const addInteracao = {
+                textointeracao: req.body.textointeracao,
+                numerochamado: req.body.numerochamado
+            }
+            new InteracoesChamados(addInteracao).save()
+
+            /*Fim do tratamento*/
             req.flash("success_msg", "Trâmite enviado com sucesso!")
             res.redirect("/admin/meuschamados")
-        }).catch((erro) => {          
+        }).catch((erro) => {
             req.flash("error_msg", "Error: Trâmite não enviado!")
             res.redirect("/admin/meuschamados")
         })
